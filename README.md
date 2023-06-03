@@ -1,139 +1,66 @@
-# AP3 EL BOURIMI Abderrahim
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-# CMD : 
+<p align="center">
+<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+</p>
 
-![image](https://github.com/Abdel1717/AP3/assets/75304006/f753285e-c92f-4ad6-87c5-5ab3b8778472)
+## About Laravel
 
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-# Scripts SQL : 
+Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-CREATE TABLE Tarifs(
-   idTarif INT IDENTITY,
-   nomTarif VARCHAR(50),
-   prixTarif INT,
-   PRIMARY KEY(idTarif)
-);
+## Learning Laravel
 
-CREATE TABLE Categorie(
-   idCategorie INT IDENTITY,
-   nomCategorie VARCHAR(50),
-   PRIMARY KEY(idCategorie)
-);
+Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-CREATE TABLE Lieu(
-   idLieu INT IDENTITY,
-   nomLieu VARCHAR(50),
-   PRIMARY KEY(idLieu)
-);
+You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
 
-CREATE TABLE CalendrierEntrainement(
-   idCalendrier INT IDENTITY,
-   dateCalendrier DATE,
-   heureCalendrier TIME,
-   idCategorie INT NOT NULL,
-   PRIMARY KEY(idCalendrier),
-   FOREIGN KEY(idCategorie) REFERENCES Categorie(idCategorie)
-);
+If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-CREATE TABLE Réunions(
-   idRéunion INT IDENTITY,
-   objet VARCHAR(50),
-   PRIMARY KEY(idRéunion)
-);
+## Laravel Sponsors
 
-CREATE TABLE OrdreDuJour(
-   idRéunion INT,
-   idOrdre INT IDENTITY,
-   nomOrdre VARCHAR(50),
-   PRIMARY KEY(idRéunion, idOrdre),
-   FOREIGN KEY(idRéunion) REFERENCES Réunions(idRéunion)
-);
+We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
 
-CREATE TABLE Personne(
-   idPersonne INT IDENTITY,
-   nomPersonne VARCHAR(50),
-   prenomPersonne VARCHAR(50),
-   Age INT,
-   email VARCHAR(50),
-   identifiant VARCHAR(50),
-   mot_de_passe VARCHAR(50),
-   idTarif INT NOT NULL,
-   PRIMARY KEY(idPersonne),
-   FOREIGN KEY(idTarif) REFERENCES Tarifs(idTarif)
-);
+### Premium Partners
 
-CREATE TABLE Joueur(
-   idPersonne INT,
-   numero VARCHAR(50),
-   poste VARCHAR(50),
-   idCategorie INT NOT NULL,
-   PRIMARY KEY(idPersonne),
-   FOREIGN KEY(idPersonne) REFERENCES Personne(idPersonne),
-   FOREIGN KEY(idCategorie) REFERENCES Categorie(idCategorie)
-);
+- **[Vehikl](https://vehikl.com/)**
+- **[Tighten Co.](https://tighten.co)**
+- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
+- **[64 Robots](https://64robots.com)**
+- **[Cubet Techno Labs](https://cubettech.com)**
+- **[Cyber-Duck](https://cyber-duck.co.uk)**
+- **[Many](https://www.many.co.uk)**
+- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
+- **[DevSquad](https://devsquad.com)**
+- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
+- **[OP.GG](https://op.gg)**
+- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
+- **[Lendio](https://lendio.com)**
 
-CREATE TABLE Entraineur(
-   idPersonne INT,
-   formation VARCHAR(50),
-   tauxHorraire VARCHAR(50),
-   PRIMARY KEY(idPersonne),
-   FOREIGN KEY(idPersonne) REFERENCES Personne(idPersonne)
-);
+## Contributing
 
-CREATE TABLE Evenement_(
-   idEvenement_ INT IDENTITY,
-   nomEvenement VARCHAR(50),
-   dateEvenement DATE,
-   resultat VARCHAR(50),
-   idPersonne INT NOT NULL,
-   idCategorie INT NOT NULL,
-   idLieu INT NOT NULL,
-   PRIMARY KEY(idEvenement_),
-   FOREIGN KEY(idPersonne) REFERENCES Entraineur(idPersonne),
-   FOREIGN KEY(idCategorie) REFERENCES Categorie(idCategorie),
-   FOREIGN KEY(idLieu) REFERENCES Lieu(idLieu)
-);
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-CREATE TABLE Participer(
-   idPersonne INT,
-   idCalendrier INT,
-   travailRealisé VARCHAR(50),
-   PRIMARY KEY(idPersonne, idCalendrier),
-   FOREIGN KEY(idPersonne) REFERENCES Personne(idPersonne),
-   FOREIGN KEY(idCalendrier) REFERENCES CalendrierEntrainement(idCalendrier)
-);
+## Code of Conduct
 
-CREATE TABLE Reserver(
-   idPersonne INT,
-   idEvenement_ INT,
-   placeReservation DATE,
-   PRIMARY KEY(idPersonne, idEvenement_),
-   FOREIGN KEY(idPersonne) REFERENCES Personne(idPersonne),
-   FOREIGN KEY(idEvenement_) REFERENCES Evenement_(idEvenement_)
-);
+In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-CREATE TABLE Organiser(
-   idCalendrier INT,
-   idPersonne INT,
-   Absence VARCHAR(50),
-   PRIMARY KEY(idCalendrier, idPersonne),
-   FOREIGN KEY(idCalendrier) REFERENCES CalendrierEntrainement(idCalendrier),
-   FOREIGN KEY(idPersonne) REFERENCES Entraineur(idPersonne)
-);
+## Security Vulnerabilities
 
-CREATE TABLE Plannifier(
-   idPersonne INT,
-   idRéunion INT,
-   PRIMARY KEY(idPersonne, idRéunion),
-   FOREIGN KEY(idPersonne) REFERENCES Entraineur(idPersonne),
-   FOREIGN KEY(idRéunion) REFERENCES Réunions(idRéunion)
-);
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-CREATE TABLE Remplacer(
-   idPersonne INT,
-   idPersonne_1 INT,
-   PRIMARY KEY(idPersonne, idPersonne_1),
-   FOREIGN KEY(idPersonne) REFERENCES Entraineur(idPersonne),
-   FOREIGN KEY(idPersonne_1) REFERENCES Entraineur(idPersonne)
-);
+## License
+
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

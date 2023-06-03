@@ -12,7 +12,7 @@ class Personne extends Authenticatable
     protected $table = "Personne";
     protected $primaryKey = "idPersonne";
     public $timestamps = false;
-    protected $fillable = ['nomPersonne', 'prenomPersonne', 'Age', 'email', 'identifiant', 'mot_de_passe'];
+    protected $fillable = ['nomPersonne', 'prenomPersonne', 'Age', 'email', 'identifiant', 'mot_de_passe','type'];
 
     public function entraineur(){
         return $this->hasOne('App\Models\Entraineur', 'idPersonne');
@@ -36,6 +36,11 @@ class Personne extends Authenticatable
     
 public function getAuthPassword(){
     return $this->mot_de_passe;
+}
+
+public function getType()
+{
+    return $this->attributes['type'];
 }
 
 }

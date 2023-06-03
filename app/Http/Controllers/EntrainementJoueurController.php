@@ -5,7 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\CalendrierEntrainement;
 use App\Models\Categorie;
+use App\Models\Joueur ;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+ //php artisan make:migration add_fields_to_entrainement_joueur_table --table=EntrainementJoueur
+
 
 class EntrainementJoueurController extends Controller
 {
@@ -16,9 +20,26 @@ class EntrainementJoueurController extends Controller
      */
     public function index()
     {
-        $joueur = Auth::user();
-        $Les_EntrainementsJoueurs = $joueur->CalendrierEntrainement ?? 'none';
-        return view("Entrainements.gestionEntrainementsJoueurs", ['Les_Entrainements'=>$Les_EntrainementsJoueurs]);
+        $joueur = Auth::user();        
+        //dd($joueur->idPersonne);
+        //$Joueur1 = Joueur::with('personne')->get(); Bonne lmethode Non fonctionnel
+        $Les_EntrainementsJoueurs = DB::table('EntrainementJoueur')
+                           ->join('CalendrierEntrainement', 'EntrainementJoueur.idCalendrier', '=', 'CalendrierEntrainement.idCalendrier')
+                           ->join('Categorie', 'CalendrierEntrainement.idCategorie', '=', 'Categorie.idCategorie')
+                           ->where('EntrainementJoueur.idPersonne', '=', Auth::id())
+                            ->get();
+
+            $nombreSeances = DB::table('EntrainementJoueur')
+                            ->where('idPersonne', Auth::id())
+                            ->count();
+                    
+            $dureeTotale = DB::table('EntrainementJoueur')
+                            ->where('idPersonne', Auth::id())
+                            ->sum('dureeTotal');
+
+             $statJoueur[] = ['nombreSeances' => $nombreSeances,'dureeTotale' => $dureeTotale];
+                            dd($statJoueur);
+        return view("Entrainements.gestionEntrainementsJoueurs", ['Les_EntrainementsJoueurs'=>$Les_EntrainementsJoueurs], ['StatJoueur'=> $statJoueur]);
     }
 
     /**
@@ -51,8 +72,8 @@ class EntrainementJoueurController extends Controller
     public function show($id)
     {
         $Un_EntrainementJoueur = CalendrierEntrainement::find($id);
-        $Categorie = $Un_EntrainementJoueur ->Categorie;
-        return view('Entrainements.detailEntrainementJoueur', ['Un_EntrainementJoueur'=>$Un_EntrainementJoueur]);
+        $Categorie = $Un_EntrainementJoueur ->Categorie ?? 'none';
+        return view('Entrainements.gestionEntrainementsJoueurs', ['Un_EntrainementJoueur'=>$Un_EntrainementJoueur]);
     }
 
     /**

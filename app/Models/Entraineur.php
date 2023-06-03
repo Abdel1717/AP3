@@ -14,12 +14,12 @@ class Entraineur extends Authenticatable
     public $timestamp = "false";
     protected $fillable = ['formation', 'tauxHorraire'];
 
-    public function Personne(){
+    public function personne(){
         return $this->hasOne(Personne::class, 'idPersonne');
     }
 
     public function calendrierentrainement(){
-        return $this->belongsToMany('App\Models\CalendrierEntrainement', 'Organiser', 'idPersonne', 'idCalendrier');
+        return $this->belongsToMany('App\Models\calendrierEntrainement', 'Organiser', 'idPersonne', 'idCalendrier');
     }
 
     public function Reunion(){
